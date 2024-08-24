@@ -1,0 +1,19 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaleKit", "TaleKit\TaleKit.csproj", "{7F88D6B2-8CA7-4BE1-A20F-B1498EFB162A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7F88D6B2-8CA7-4BE1-A20F-B1498EFB162A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F88D6B2-8CA7-4BE1-A20F-B1498EFB162A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F88D6B2-8CA7-4BE1-A20F-B1498EFB162A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F88D6B2-8CA7-4BE1-A20F-B1498EFB162A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7F88D6B2-8CA7-4BE1-A20F-B1498EFB162A} = {C7BEC504-8520-4B4F-9768-918819CBD5DF}
+	EndGlobalSection
+EndGlobal
