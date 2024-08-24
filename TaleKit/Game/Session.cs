@@ -28,6 +28,8 @@ public class Session
             .AddSingleton<INetwork>(network)
             .AddSingleton<Session>(this)
             .BuildServiceProvider();
+
+        bridge.Session = this;
         
         this.network = network;
         this.factory = services.GetRequiredService<PacketFactory>();
