@@ -12,7 +12,7 @@ This project is useless as is since it's just some kind of abstraction of the ga
 ### Public
 - [TaleKit.Phoenix](https://github.com/TaleFactory/TaleKit.Phoenix) (Local using Phoenix Bot)
 
-### How to create you own implementation
+## How to create you own implementation
 You need two major things to create your own implementation
 
 <details>
