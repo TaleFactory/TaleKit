@@ -11,7 +11,7 @@ public class MapData
 public class MapRegistry
 {
     private static Dictionary<int, MapData> Cache;
-    private static readonly string DirectoryPath = Path.Combine(NKitSettings.StorageDirectory, "Registry");
+    private static readonly string DirectoryPath = Path.Combine(TaleKitSettings.StorageDirectory, "Registry");
     
     public static MapData GetMapData(int virtualNumber)
     {

@@ -11,7 +11,7 @@ public class MonsterData
 public class MonsterRegistry
 {
     private static Dictionary<int, MonsterData> Cache;
-    private static readonly string DirectoryPath = Path.Combine(NKitSettings.StorageDirectory, "Registry");
+    private static readonly string DirectoryPath = Path.Combine(TaleKitSettings.StorageDirectory, "Registry");
     
     public static MonsterData GetMonsterData(int virtualNumber)
     {

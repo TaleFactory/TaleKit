@@ -20,7 +20,7 @@ public class TranslationRegistry
 {
     private static readonly ConcurrentDictionary<TranslationGroup, ConcurrentDictionary<Language, Dictionary<string, string>>> Cache = new();
     
-    private static readonly string DirectoryPath = Path.Combine(NKitSettings.StorageDirectory, "Registry", "Translation");
+    private static readonly string DirectoryPath = Path.Combine(TaleKitSettings.StorageDirectory, "Registry", "Translation");
     
     public static string GetTranslation(TranslationGroup group, Language language, string key)
     {

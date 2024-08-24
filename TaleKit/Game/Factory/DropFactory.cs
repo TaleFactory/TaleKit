@@ -18,7 +18,7 @@ public class DropFactory
             Id = id,
             VirtualNumber = vnum,
             Amount = amount,
-            Name = TranslationRegistry.GetTranslation(TranslationGroup.Items, NKitSettings.Language, data.NameKey) ?? "Undefined"
+            Name = TranslationRegistry.GetTranslation(TranslationGroup.Items, TaleKitSettings.Language, data.NameKey) ?? "Undefined"
         };
     }
 }

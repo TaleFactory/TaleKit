@@ -19,7 +19,7 @@ public class SkillData
 public class SkillRegistry
 {
     private static Dictionary<int, SkillData> Cache;
-    private static readonly string DirectoryPath = Path.Combine(NKitSettings.StorageDirectory, "Registry");
+    private static readonly string DirectoryPath = Path.Combine(TaleKitSettings.StorageDirectory, "Registry");
     
     public static SkillData GetSkillData(int virtualNumber)
     {

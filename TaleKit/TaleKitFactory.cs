@@ -14,7 +14,7 @@ public class SessionConfiguration
     public required IActionBridge ActionBridge { get; init; }
 }
 
-public class NKitFactory
+public class TaleKitFactory
 {
     public static Session CreateSession(SessionConfiguration configuration)
     {

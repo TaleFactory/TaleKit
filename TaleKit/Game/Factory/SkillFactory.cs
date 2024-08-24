@@ -16,7 +16,7 @@ public class SkillFactory
         return new Skill
         {
             VirtualNumber = vnum,
-            Name = TranslationRegistry.GetTranslation(TranslationGroup.Skills, NKitSettings.Language, data.NameKey)  ?? "Undefined",
+            Name = TranslationRegistry.GetTranslation(TranslationGroup.Skills, TaleKitSettings.Language, data.NameKey)  ?? "Undefined",
             Range = data.Range,
             Type = (SkillType) data.SkillType,
             CastId = data.CastId,

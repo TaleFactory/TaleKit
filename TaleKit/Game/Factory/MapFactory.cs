@@ -18,7 +18,7 @@ public static class MapFactory
             Id = mapId,
             Name = data == null 
                 ? "Undefined" 
-                : TranslationRegistry.GetTranslation(TranslationGroup.Maps, NKitSettings.Language, data.NameKey) ?? "Undefined",
+                : TranslationRegistry.GetTranslation(TranslationGroup.Maps, TaleKitSettings.Language, data.NameKey) ?? "Undefined",
             Grid = grid,
             Width = grid.Length == 0 
                 ? 0 
@@ -37,6 +37,6 @@ public static class MapFactory
             return "Undefined";
         }
 
-        return TranslationRegistry.GetTranslation(TranslationGroup.Maps, NKitSettings.Language, data.NameKey);
+        return TranslationRegistry.GetTranslation(TranslationGroup.Maps, TaleKitSettings.Language, data.NameKey);
     }
 }

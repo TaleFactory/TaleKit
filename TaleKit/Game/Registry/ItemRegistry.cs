@@ -14,7 +14,7 @@ public class ItemData
 public class ItemRegistry
 {
     private static Dictionary<int, ItemData> Cache;
-    private static readonly string DirectoryPath = Path.Combine(NKitSettings.StorageDirectory, "Registry");
+    private static readonly string DirectoryPath = Path.Combine(TaleKitSettings.StorageDirectory, "Registry");
     
     public static ItemData GetItemData(int virtualNumber)
     {
