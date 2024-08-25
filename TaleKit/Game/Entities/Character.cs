@@ -67,7 +67,7 @@ public class Character : Player
         _ = Walk(destination, currentTaskCts.Token);
     }
 
-    public async Task Dance(int id, int time, int? optionalId)
+    public async Task Dance(int id, int time, int? optionalId = null)
     {
         const int sleep = 1000;
         
