@@ -47,6 +47,7 @@ public class ScpProcessor : PacketProcessor<Scp>
         
         session.Character.Nosmates.Add(new Nosmate
         {
+            Id = packet.EntityId,
             Name = packet.Name == "@" ? name : packet.Name,
             Index = packet.Index,
             VirtualNumber = packet.VirtualNumber,

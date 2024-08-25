@@ -2,6 +2,7 @@
 
 public class Nosmate : IEquatable<Nosmate>
 {
+    public int Id { get; init; }
     public int Index { get; init; }
     public int VirtualNumber { get; init; }
     public string Name { get; init; }
