@@ -67,13 +67,19 @@ public class Character : Player
         _ = Walk(destination, currentTaskCts.Token);
     }
 
-    public async Task Dance(int id, int time)
+    public async Task Dance(int id, int time, int? optionalId)
     {
         const int sleep = 1000;
         
         var count = time / sleep;
+
+        var packet = "guri 2";
+        if (optionalId.HasValue)
+        {
+            packet += $" {optionalId}";
+        }
         
-        network.SendPacket("guri 2");
+        network.SendPacket(packet);
         for (var i = 0; i < count; i++)
         {
             network.SendPacket($"guri 5 1 {Id} {i * 20} {id}");

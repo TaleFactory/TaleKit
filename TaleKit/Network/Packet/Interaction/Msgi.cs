@@ -2,7 +2,7 @@
 using TaleKit.Game;
 using TaleKit.Game.Event.Social;
 
-namespace TaleKit.Network.Packet.Social;
+namespace TaleKit.Network.Packet.Interaction;
 
 public class Msgi : IPacket
 {
