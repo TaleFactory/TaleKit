@@ -7,6 +7,7 @@ public class Nosmate : IEquatable<Nosmate>
     public string Name { get; init; }
     public int Level { get; init; }
     public int HeroLevel { get; init; }
+    public int Stars { get; init; }
 
     public bool Equals(Nosmate other)
     {
