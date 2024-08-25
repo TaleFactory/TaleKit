@@ -14,7 +14,7 @@ public class Nosmate : IEquatable<Nosmate>
     {
         if (ReferenceEquals(null, other)) return false;
         if (ReferenceEquals(this, other)) return true;
-        return Index == other.Index;
+        return Id == other.Id;
     }
 
     public override bool Equals(object obj)
@@ -27,6 +27,6 @@ public class Nosmate : IEquatable<Nosmate>
 
     public override int GetHashCode()
     {
-        return Index;
+        return Id;
     }
 }
