@@ -141,7 +141,7 @@ public class Character : Player
             return;
         }
 
-        var canAttack = Position.IsInRange(entity.Position, skill.Range);
+        var canAttack = Position.IsInRange(entity.Position, skill.Range) && !skill.IsOnCooldown;
         if (!canAttack)
         {
             return;
@@ -152,13 +152,24 @@ public class Character : Player
 
     public void Attack(LivingEntity entity, Skill skill)
     {
-        var canAttack = Position.IsInRange(entity.Position, skill.Range);
+        var canAttack = Position.IsInRange(entity.Position, skill.Range) && !skill.IsOnCooldown;
         if (!canAttack)
         {
             return;
         }
         
         bridge.Attack(entity, skill);
+    }
+
+    public void AttackSelf(Skill skill)
+    {
+        var canAttack = skill.TargetType == TargetType.Self && !skill.IsOnCooldown;
+        if (!canAttack)
+        {
+            return;
+        }
+
+        bridge.Attack(this, skill);
     }
 
     public void PickUp(Drop drop)
