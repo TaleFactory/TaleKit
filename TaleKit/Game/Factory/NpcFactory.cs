@@ -13,7 +13,7 @@ public class NpcFactory
         {
             Id = id,
             VirtualNumber = vnum,
-            Name = TranslationRegistry.GetTranslation(TranslationGroup.Monsters, TaleKitSettings.Language, data.NameKey ?? "") ?? "Undefined"
+            Name = TranslationRegistry.GetTranslation(TranslationGroup.Monsters, TaleKitSettings.Language, data?.NameKey ?? "") ?? "Undefined"
         };
     }
 }
