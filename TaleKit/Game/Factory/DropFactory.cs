@@ -8,17 +8,13 @@ public class DropFactory
     public static Drop CreateDrop(int id, int vnum, int amount)
     {
         var data = ItemRegistry.GetItemData(vnum);
-        if (data is null)
-        {
-            throw new InvalidCastException();
-        }
-
+        
         return new Drop
         {
             Id = id,
             VirtualNumber = vnum,
             Amount = amount,
-            Name = TranslationRegistry.GetTranslation(TranslationGroup.Items, TaleKitSettings.Language, data.NameKey) ?? "Undefined"
+            Name = TranslationRegistry.GetTranslation(TranslationGroup.Items, TaleKitSettings.Language, data?.NameKey ?? "") ?? "Undefined"
         };
     }
 }

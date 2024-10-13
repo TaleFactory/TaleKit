@@ -10,7 +10,7 @@ public class SkillFactory
         var data = SkillRegistry.GetSkillData(vnum);
         if (data is null)
         {
-            throw new InvalidOperationException();
+            throw new InvalidOperationException("Skill data not found for vnum " + vnum);
         }
 
         return new Skill

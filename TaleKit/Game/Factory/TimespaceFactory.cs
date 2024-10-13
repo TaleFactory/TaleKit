@@ -9,7 +9,7 @@ public class TimespaceFactory
         return new Timespace
         {
             Id = id,
-            Position = new Position(x, y)
+            Position = new Position(x, y),
         };
     }
 }
