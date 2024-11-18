@@ -1,6 +1,7 @@
 using TaleKit.Extension;
 using TaleKit.Game;
 using TaleKit.Game.Entities;
+using TaleKit.Game.Event.Entities;
 using TaleKit.Game.Factory;
 
 namespace TaleKit.Network.Packet.Maps;
@@ -98,6 +99,7 @@ public class InProcessor : PacketProcessor<In>
             return;
         }
 
+        Entity entity = null;
         switch (packet.EntityType)
         {
             case EntityType.Monster:
@@ -114,6 +116,8 @@ public class InProcessor : PacketProcessor<In>
                 monster.Map = map;
                 
                 map.AddEntity(monster);
+                
+                entity = monster;
                 break;
             case EntityType.Drop:
                 var drop = DropFactory.CreateDrop(packet.EntityId, packet.VirtualNumber, packet.Drop.Amount);
@@ -122,6 +126,8 @@ public class InProcessor : PacketProcessor<In>
                 drop.Position = new Position(packet.X, packet.Y);
                 
                 map.AddEntity(drop);
+
+                entity = drop;
                 break;
             case EntityType.Npc:
                 var npc = NpcFactory.CreateNpc(packet.EntityId, packet.VirtualNumber);
@@ -132,6 +138,8 @@ public class InProcessor : PacketProcessor<In>
                 npc.Map = map;
                 
                 map.AddEntity(npc);
+                
+                entity = npc;
                 break;
             case EntityType.Player:
                 var player = new Player
@@ -143,7 +151,18 @@ public class InProcessor : PacketProcessor<In>
                 };
                 
                 map.AddEntity(player);
+
+                entity = player;
                 break;
+        }
+
+        if (entity is not null)
+        {
+            session.Emit(new EntitySpawnEvent
+            {
+                Session = session,
+                Entity = entity
+            });
         }
     }
 }
