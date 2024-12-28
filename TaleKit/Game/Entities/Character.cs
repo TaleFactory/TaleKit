@@ -195,6 +195,6 @@ public class Character : Player
         bridge.PickUp(drop);
     }
     
-    public INetwork GetNetwork() => network;
-    public IActionBridge GetBridge() => bridge;
+    internal INetwork GetNetwork() => network;
+    internal IActionBridge GetBridge() => bridge;
 }
