@@ -59,6 +59,19 @@ public class SuProcessor : PacketProcessor<Su>
             }
         }
 
+        if (caster is Npc npc)
+        {
+            var nosmate = session.Character.Nosmate.Entity.Id == npc.Id;
+            if (nosmate)
+            {
+                var skill = session.Character.Nosmate.Skills.FirstOrDefault(x => x.VirtualNumber == packet.SkillVnum);
+                if (skill is not null)
+                {
+                    skill.IsOnCooldown = true;
+                }
+            }
+        }
+
         if (target is null || caster is null)
         {
             return;

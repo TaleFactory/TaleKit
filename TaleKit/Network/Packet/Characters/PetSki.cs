@@ -48,7 +48,7 @@ public class PetSkillProcessor : PacketProcessor<PetSki>
         session.Character.Nosmate.Skills = packet.Skills
             .Select(x => new NosmateSkill 
             { 
-                Id = x 
+                VirtualNumber = x 
             })
             .ToList();
     }

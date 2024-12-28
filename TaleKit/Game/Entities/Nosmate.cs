@@ -36,13 +36,14 @@ public class Nosmate : IEquatable<Nosmate>
 
 public class NosmateSkill : IEquatable<NosmateSkill>
 {
-    public int Id { get; init; }
+    public int VirtualNumber { get; init; }
+    public bool IsOnCooldown { get; set; }
 
     public bool Equals(NosmateSkill other)
     {
         if (ReferenceEquals(null, other)) return false;
         if (ReferenceEquals(this, other)) return true;
-        return Id == other.Id;
+        return VirtualNumber == other.VirtualNumber;
     }
 
     public override bool Equals(object obj)
@@ -55,7 +56,7 @@ public class NosmateSkill : IEquatable<NosmateSkill>
 
     public override int GetHashCode()
     {
-        return Id;
+        return VirtualNumber;
     }
 }
 
@@ -103,7 +104,7 @@ public class SummonedNosmate
             return;
         }
         
-        Owner.GetNetwork().SendPacket($"u_pet {Entity.Id} {(int)target.EntityType} {target.Id} {skill.Id} {Entity.Position.X} {Entity.Position.Y}");
+        Owner.GetNetwork().SendPacket($"u_pet {Entity.Id} {(int)target.EntityType} {target.Id} {skill.VirtualNumber} {Entity.Position.X} {Entity.Position.Y}");
     }
 
     public void AttackSelf(NosmateSkill skill)
