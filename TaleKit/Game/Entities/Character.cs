@@ -10,8 +10,8 @@ public interface IActionBridge
 {
     Session Session { get; set; }
     
-    void Walk(Position position, int speed);
-    void WalkNosmate(Position position, int speed);
+    void Walk(Character character, Position position);
+    void WalkNosmate(SummonedNosmate nosmate, Position position);
     void Attack(LivingEntity entity);
     void Attack(LivingEntity entity, Skill skill);
     void PickUp(Drop drop);
@@ -137,7 +137,7 @@ public class Character : Player
                 break;
             }
             
-            bridge.Walk(target, Speed);
+            bridge.Walk(this, target);
 
             try
             {

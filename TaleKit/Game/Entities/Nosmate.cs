@@ -144,7 +144,7 @@ public class SummonedNosmate
                 break;
             }
             
-            Owner.GetBridge().WalkNosmate(target, Entity.Speed);
+            Owner.GetBridge().WalkNosmate(this, target);
 
             try
             {
