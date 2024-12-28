@@ -11,6 +11,7 @@ public interface IActionBridge
     Session Session { get; set; }
     
     void Walk(Position position, int speed);
+    void WalkNosmate(Position position, int speed);
     void Attack(LivingEntity entity);
     void Attack(LivingEntity entity, Skill skill);
     void PickUp(Drop drop);
@@ -54,6 +55,11 @@ public class Character : Player
 
     public void Walk(Position destination)
     {
+        _ = WalkAsync(destination);
+    }
+
+    public Task WalkAsync(Position destination)
+    {
         if (currentTaskCts is not null)
         {
             currentTaskCts.Cancel();
@@ -63,10 +69,10 @@ public class Character : Player
         
         if (!Map.IsWalkable(destination))
         {
-            return;
+            return Task.CompletedTask;
         }
 
-        _ = Walk(destination, currentTaskCts.Token);
+        return Walk(destination, currentTaskCts.Token);
     }
 
     public void Summon(Nosmate nosmate)
