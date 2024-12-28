@@ -1,4 +1,7 @@
-﻿namespace TaleKit.Game.Entities;
+﻿using TaleKit.Game.Combat;
+using TaleKit.Network;
+
+namespace TaleKit.Game.Entities;
 
 public class Nosmate : IEquatable<Nosmate>
 {
@@ -28,5 +31,39 @@ public class Nosmate : IEquatable<Nosmate>
     public override int GetHashCode()
     {
         return Id;
+    }
+}
+
+public class NosmateSkill
+{
+    public int Id { get; init; }
+}
+
+public class SummonedNosmate
+{
+    public required Nosmate Nosmate { get; init; }
+    public List<NosmateSkill> Skills { get; set; } = new();
+    
+    public Character Owner { get; }
+    public LivingEntity Entity => Owner.Map.GetEntity<Npc>(EntityType.Npc, Nosmate.Id);
+
+    public SummonedNosmate(Character owner)
+    {
+        Owner = owner;
+    }
+    
+    public void Attack(LivingEntity target, NosmateSkill skill)
+    {
+        if (!Skills.Contains(skill))
+        {
+            return;
+        }
+        
+        Owner.GetNetwork().SendPacket($"u_pet {Entity.Id} {(int)target.EntityType} {target.Id} {skill.Id} {Entity.Position.X} {Entity.Position.Y}");
+    }
+
+    public void AttackSelf(NosmateSkill skill)
+    {
+        Attack(Entity, skill);
     }
 }

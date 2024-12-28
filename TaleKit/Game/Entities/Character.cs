@@ -25,6 +25,8 @@ public class Character : Player
 
     public HashSet<Skill> Skills { get; set; } = new();
     public HashSet<Nosmate> Nosmates { get; set; } = new();
+    
+    public SummonedNosmate Nosmate { get; set; }
 
     public Social Social { get; }
     public Inventory Inventory { get; }
@@ -65,6 +67,16 @@ public class Character : Player
         }
 
         _ = Walk(destination, currentTaskCts.Token);
+    }
+
+    public void Summon(Nosmate nosmate)
+    {
+        if (!Nosmates.Contains(nosmate))
+        {
+            return;
+        }
+        
+        // TODO: Implement summoning
     }
 
     public async Task Dance(int id, int time, int? optionalId = null)
@@ -182,4 +194,7 @@ public class Character : Player
         
         bridge.PickUp(drop);
     }
+    
+    public INetwork GetNetwork() => network;
+    public IActionBridge GetBridge() => bridge;
 }
