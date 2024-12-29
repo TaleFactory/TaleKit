@@ -3,23 +3,17 @@ namespace TaleKit.Game.Event.Timespaces;
 public class QuestionEvent : IEvent
 {
     public Session Session { get; init; }
+    
+    public string Accept { get; init; }
+    public string Decline { get; init; }
 
-    private readonly string accept;
-    private readonly string decline;
-
-    public QuestionEvent(string accept, string decline)
+    public void AcceptIt()
     {
-        this.accept = accept;
-        this.decline = decline;
+        Session.SendPacket(Accept);
     }
 
-    public void Accept()
+    public void DeclineIt()
     {
-        Session.SendPacket(accept);
-    }
-
-    public void Decline()
-    {
-        Session.SendPacket(decline);
+        Session.SendPacket(Decline);
     }
 }

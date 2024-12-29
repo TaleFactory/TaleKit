@@ -1,7 +1,7 @@
 using TaleKit.Game;
 using TaleKit.Game.Event.Timespaces;
 
-namespace TaleKit.Network.Packet.Timespace;
+namespace TaleKit.Network.Packet.Dialog;
 
 public class Dlgi : IPacket
 {
@@ -27,8 +27,10 @@ public class DlgiProcessor : PacketProcessor<Dlgi>
 {
     protected override void Process(Session session, Dlgi packet)
     {
-        session.Emit(new QuestionEvent(packet.Accept, packet.Decline)
+        session.Emit(new QuestionEvent
         {
+            Accept = packet.Accept,
+            Decline = packet.Decline,
             Session = session
         });
     }
