@@ -17,3 +17,18 @@ public abstract class EventProcessor<T> : IEventProcessor where T : IEvent
 
     protected abstract void Process(T e);
 }
+
+public class SimpleProcessor<T> : EventProcessor<T> where T : IEvent
+{
+    private readonly Action<T> processor;
+    
+    public SimpleProcessor(Action<T> processor)
+    {
+        this.processor = processor;
+    }
+    
+    protected override void Process(T e)
+    {
+        processor(e);
+    }
+}

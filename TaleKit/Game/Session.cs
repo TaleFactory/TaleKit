@@ -58,14 +58,14 @@ public class Session
         this.network.Disconnect();
     }
 
-    public Session AddEventProcessor<T>() where T : IEventProcessor
+    public Session AddProcessor<T>() where T : IEventProcessor
     {
         var processor = Activator.CreateInstance<T>();
-        AddEventProcessor(processor);
+        AddProcessor(processor);
         return this;
     }
 
-    public void AddEventProcessor<T>(T processor) where T : IEventProcessor
+    public void AddProcessor<T>(T processor) where T : IEventProcessor
     {
         var eventProcessors = processors.GetValueOrDefault(processor.EventType);
         if (eventProcessors is null)
@@ -74,6 +74,11 @@ public class Session
         }
         
         eventProcessors.Add(processor);
+    }
+
+    public void AddProcessor<T>(Action<T> task) where T : IEvent
+    {
+        AddProcessor(new SimpleProcessor<T>(task));
     }
 
     public void Emit<T>(T e) where T : IEvent
