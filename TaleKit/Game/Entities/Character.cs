@@ -39,8 +39,6 @@ public class Character : Player
     private readonly INetwork network;
     private readonly IActionBridge bridge;
 
-    private CancellationTokenSource currentTaskCts;
-
     public Character(IActionBridge bridge, INetwork network)
     {
         this.bridge = bridge;
@@ -55,37 +53,10 @@ public class Character : Player
 
     public void Walk(Position destination)
     {
-        _ = WalkAsync(destination);
+        bridge.Walk(this, destination);
     }
 
-    public Task WalkAsync(Position destination)
-    {
-        if (currentTaskCts is not null)
-        {
-            currentTaskCts.Cancel();
-        }
-
-        currentTaskCts = new CancellationTokenSource();
-        
-        if (!Map.IsWalkable(destination))
-        {
-            return Task.CompletedTask;
-        }
-
-        return Walk(destination, currentTaskCts.Token);
-    }
-
-    public void Summon(Nosmate nosmate)
-    {
-        if (!Nosmates.Contains(nosmate))
-        {
-            return;
-        }
-        
-        // TODO: Implement summoning
-    }
-
-    public async Task Dance(int id, int time, int? optionalId = null)
+    public void Dance(int id, int time, int? optionalId = null)
     {
         const int sleep = 1000;
         
@@ -101,53 +72,7 @@ public class Character : Player
         for (var i = 0; i < count; i++)
         {
             network.SendPacket($"guri 5 1 {Id} {i * 20} {id}");
-            await Task.Delay(sleep);
-        }
-    }
-    
-    private async Task Walk(Position destination, CancellationToken cancellationToken)
-    {
-        var positiveX = destination.X > Position.X;
-        var positiveY = destination.Y > Position.Y;
-        
-        while(!Position.Equals(destination) && !cancellationToken.IsCancellationRequested)
-        {
-            var distance = Position.Distance(destination);
-
-            var stepX = distance.X >= 5 ? 5 : distance.X;
-            var stepY = distance.Y >= 5 ? 5 : distance.Y;
-            
-            var stepTotal = stepX + stepY;
-            if (stepTotal > 5)
-            {
-                var difference = stepTotal - 5;
-                var split = difference / 2 + (difference % 2);
-
-                stepX -= split;
-                stepY -= split;
-            }
-            
-            var x = (positiveX ? 1 : -1) * stepX + Position.X;
-            var y = (positiveY ? 1 : -1) * stepY + Position.Y;
-
-            var target = new Position(x, y);
-
-            if (!Map.IsWalkable(target))
-            {
-                break;
-            }
-            
-            bridge.Walk(this, target);
-
-            try
-            {
-                await Task.Delay((stepX + stepY) * (2000 / Speed), cancellationToken);
-            }
-            catch (TaskCanceledException) { }
-            finally
-            {
-                Position = target;
-            }
+            Thread.Sleep(sleep);
         }
     }
 

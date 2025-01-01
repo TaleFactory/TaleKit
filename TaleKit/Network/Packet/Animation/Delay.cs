@@ -29,9 +29,7 @@ public class DelayProcessor : PacketProcessor<Delay>
 {
     protected override void Process(Session session, Delay packet)
     {
-        session.Character.Dance(packet.Identifier, packet.TotalTime).Then(() =>
-        {
-            session.SendPacket(packet.Response);
-        });
+        session.Character.Dance(packet.Identifier, packet.TotalTime);
+        session.SendPacket(packet.Response);
     }
 }
