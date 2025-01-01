@@ -31,7 +31,13 @@ public class WalkProcessor : PacketProcessor<Walk>
 {
     protected override void Process(Session session, Walk packet)
     {
-        Task.Delay(1000).Then(() =>
+        var distance = session.Character.Position.GetDistance(new Position
+        {
+            X = packet.X,
+            Y = packet.Y
+        });
+        
+        Task.Delay(distance * 200).Then(() =>
         {
             session.Character.Position = new Position
             {
