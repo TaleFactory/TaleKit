@@ -56,12 +56,8 @@ public class Character : Player
         bridge.Walk(this, destination);
     }
 
-    public void Dance(int id, int time, int? optionalId = null)
+    public void Dance(int? optionalId = null)
     {
-        const int sleep = 1000;
-        
-        var count = time / sleep;
-
         var packet = "guri 2";
         if (optionalId.HasValue)
         {
@@ -69,11 +65,6 @@ public class Character : Player
         }
         
         network.SendPacket(packet);
-        for (var i = 0; i < count; i++)
-        {
-            network.SendPacket($"guri 5 1 {Id} {i * 20} {id}");
-            Thread.Sleep(sleep);
-        }
     }
 
     public void Attack(LivingEntity entity)
