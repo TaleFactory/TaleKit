@@ -31,10 +31,13 @@ public class WalkProcessor : PacketProcessor<Walk>
 {
     protected override void Process(Session session, Walk packet)
     {
-        session.Character.Position = new Position
+        Task.Delay(1000).Then(() =>
         {
-            X = packet.X,
-            Y = packet.Y
-        };
+            session.Character.Position = new Position
+            {
+                X = packet.X,
+                Y = packet.Y
+            };
+        });
     }
 }

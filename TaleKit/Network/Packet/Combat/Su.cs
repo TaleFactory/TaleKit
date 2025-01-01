@@ -50,28 +50,6 @@ public class SuProcessor : PacketProcessor<Su>
         var caster = map.GetEntity<LivingEntity>(packet.EntityType, packet.EntityId);
         var target = map.GetEntity<LivingEntity>(packet.TargetEntityType, packet.TargetEntityId);
 
-        if (caster is Character character)
-        {
-            var skill = character.Skills.FirstOrDefault(x => x.VirtualNumber == packet.SkillVnum);
-            if (skill is not null)
-            {
-                skill.IsOnCooldown = true;
-            }
-        }
-
-        if (caster is Npc npc)
-        {
-            var nosmate = session.Character.Nosmate.Entity.Id == npc.Id;
-            if (nosmate)
-            {
-                var skill = session.Character.Nosmate.Skills.FirstOrDefault(x => x.VirtualNumber == packet.SkillVnum);
-                if (skill is not null)
-                {
-                    skill.IsOnCooldown = true;
-                }
-            }
-        }
-
         if (target is null || caster is null)
         {
             return;
