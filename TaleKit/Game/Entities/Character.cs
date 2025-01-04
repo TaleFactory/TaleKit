@@ -8,13 +8,11 @@ namespace TaleKit.Game.Entities;
 
 public interface IActionBridge
 {
-    Session Session { get; set; }
-    
     void Walk(Character character, Position position);
     void WalkNosmate(SummonedNosmate nosmate, Position position);
     void Attack(LivingEntity entity);
     void Attack(LivingEntity entity, Skill skill);
-    void PickUp(Drop drop);
+    void PickUp(Character character, Drop drop);
 }
 
 public class Character : Player
@@ -114,7 +112,7 @@ public class Character : Player
             return;
         }
         
-        bridge.PickUp(drop);
+        bridge.PickUp(this, drop);
     }
     
     internal INetwork GetNetwork() => network;
