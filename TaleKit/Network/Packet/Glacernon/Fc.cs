@@ -36,11 +36,7 @@ public class FcBuilder : PacketBuilder<Fc>
             AngelTime = body[4].ToInt(),
             DemonPercent = body[11].ToInt(),
             DemonEvent = body[12].ToInt(),
-            DemonTime = body[13].ToInt(),
-            IsMorcos = body[15] == "1",
-            IsHatus = body[16] == "1",
-            IsCalvina = body[17] == "1",
-            IsBerios = body[18] == "1"
+            DemonTime = body[13].ToInt()
         };
     }
 }
@@ -59,7 +55,7 @@ public class FcProcessor : PacketProcessor<Fc>
             });
         }
         
-        if (packet.AngelEvent == 2 || packet.DemonEvent == 2)
+        if (packet.AngelEvent == 1 || packet.DemonEvent == 1)
         {
             session.Emit(new GlacernonMukrajuSpawnedEvent
             {
@@ -76,13 +72,6 @@ public class FcProcessor : PacketProcessor<Fc>
                 Session = session,
                 Side = packet.AngelEvent == 3 ? GlacernonSide.Angel : GlacernonSide.Demon,
                 TimeLeft = packet.AngelEvent == 3 ? packet.AngelTime : packet.DemonTime,
-                RaidKind = packet.IsMorcos 
-                    ? RaidKind.Morcos 
-                    : packet.IsHatus 
-                        ? RaidKind.Hatus 
-                        : packet.IsCalvina 
-                            ? RaidKind.Calvina 
-                            : RaidKind.Berios
             });
         }
     }
