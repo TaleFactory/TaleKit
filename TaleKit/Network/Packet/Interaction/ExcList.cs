@@ -49,6 +49,12 @@ public class ExcListProcessor : PacketProcessor<ExcList>
             {
                 Other = sender
             };
+            
+            session.Emit(new TradeStartedEvent
+            {
+                Session = session,
+                Trade = session.Character.Trade
+            });
         }
         else
         {
