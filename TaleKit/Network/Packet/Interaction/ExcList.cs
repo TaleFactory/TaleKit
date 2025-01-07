@@ -20,6 +20,11 @@ public class ExcListBuilder : PacketBuilder<ExcList>
 
     protected override ExcList CreatePacket(string[] body)
     {
+        if (body.Length != 4)
+        {
+            return null;
+        }
+        
         return new ExcList
         {
             EntityType = body[0].ToEnum<EntityType>(),
