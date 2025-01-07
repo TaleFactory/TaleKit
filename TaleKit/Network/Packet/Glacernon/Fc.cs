@@ -60,8 +60,8 @@ public class FcProcessor : PacketProcessor<Fc>
             session.Emit(new GlacernonMukrajuSpawnedEvent
             {
                 Session = session,
-                Side = packet.AngelEvent == 2 ? GlacernonSide.Angel : GlacernonSide.Demon,
-                TimeLeftInSeconds = packet.AngelEvent == 2 ? packet.AngelTime : packet.DemonTime
+                Side = packet.AngelEvent == 1 ? GlacernonSide.Angel : GlacernonSide.Demon,
+                TimeLeftInSeconds = packet.AngelEvent == 1 ? packet.AngelTime : packet.DemonTime
             });
         }
         
