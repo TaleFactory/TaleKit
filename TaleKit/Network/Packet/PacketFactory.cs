@@ -42,7 +42,7 @@ public class PacketFactory
         }
         catch (Exception e)
         {
-            Log.Error("Unable to deserialized packet", e);
+            Log.Error(e, "Unable to deserialized packet");
         }
 
         return typedPacket;
