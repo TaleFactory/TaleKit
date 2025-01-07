@@ -7,8 +7,8 @@ namespace TaleKit.Network.Packet.Interaction;
 
 public enum TradeCloseType
 {
-    Cancel,
-    Completed
+    Cancel = 0,
+    Completed = 1
 }
 
 public class ExcClose : IPacket
@@ -53,5 +53,7 @@ public class ExcCloseProcessor : PacketProcessor<ExcClose>
             default:
                 throw new ArgumentOutOfRangeException();
         }
+
+        session.Character.Trade = null;
     }
 }

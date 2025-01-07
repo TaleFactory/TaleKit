@@ -23,8 +23,8 @@ public class Dlgi2Builder : PacketBuilder<Dlgi2>
 
         var sender = id switch
         {
-            169 => body[4],
-            _ => body[3]
+            169 => body[5],
+            _ => body[4]
         };
 
         return new Dlgi2
