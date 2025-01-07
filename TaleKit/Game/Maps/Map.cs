@@ -138,6 +138,50 @@ public class Map
 
         return (T)entity;
     }
+    
+    public IEnumerable<T> GetEntities<T>(EntityType entityType) where T : Entity
+    {
+        IEnumerable<T> entities = entityType switch
+        {
+            EntityType.Monster => monsters.Values.Cast<T>(),
+            EntityType.Drop => drops.Values.Cast<T>(),
+            EntityType.Player => players.Values.Cast<T>(),
+            EntityType.Npc => npcs.Values.Cast<T>(),
+            _ => throw new ArgumentOutOfRangeException(nameof(entityType), entityType, null)
+        };
+
+        return entities;
+    }
+    
+    public Player GetPlayerByName(string name)
+    {
+        return players.Values.FirstOrDefault(player => player.Name == name);
+    }
+    
+    public Npc GetNpcByName(string name)
+    {
+        return npcs.Values.FirstOrDefault(npc => npc.Name == name);
+    }
+    
+    public IEnumerable<Monster> GetMonstersByName(string name)
+    {
+        return monsters.Values.Where(monster => monster.Name == name);
+    }
+    
+    public IEnumerable<Npc> GetNpcsByName(string name)
+    {
+        return npcs.Values.Where(npc => npc.Name == name);
+    }
+    
+    public IEnumerable<Drop> GetDropsByName(string name)
+    {
+        return drops.Values.Where(drop => drop.Name == name);
+    }
+    
+    public bool IsWalkable(int x, int y)
+    {
+        return IsWalkable(new Position(x, y));
+    }
 
     public bool IsWalkable(Position position)
     {

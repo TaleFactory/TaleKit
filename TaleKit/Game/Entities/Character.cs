@@ -34,6 +34,8 @@ public class Character : Player
     public override int HpPercentage => (byte)(Health == 0 ? 0 : (double)Health / MaximumHealth * 100);
     public override int MpPercentage => (byte)(Mana == 0 ? 0 : (double)Mana / MaximumMana * 100);
 
+    public Trade Trade { get; set; }
+    
     private readonly INetwork network;
     private readonly IActionBridge bridge;
 
@@ -42,16 +44,21 @@ public class Character : Player
         this.bridge = bridge;
         this.network = network;
 
-        Social = new Social(network);
-        Inventory = new Inventory(this, network);
-        Equipment = new Equipment(network);
+        Social = new Social(this);
+        Inventory = new Inventory(this);
+        Equipment = new Equipment(this);
     }
     
     public override EntityType EntityType => EntityType.Player;
-
+    
     public void Walk(Position destination)
     {
         bridge.Walk(this, destination);
+    }
+    
+    public void SendTradeRequest(Player player)
+    {
+        network.SendPacket($"req_exc 1 {player.Id}");
     }
 
     public void Dance(int? optionalId = null)

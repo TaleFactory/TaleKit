@@ -5,6 +5,7 @@ using TaleKit.Game.Entities;
 using TaleKit.Game.Event;
 using TaleKit.Network;
 using TaleKit.Network.Packet;
+using TaleKit.Network.Packet.Interaction;
 
 namespace TaleKit.Game;
 
@@ -103,7 +104,7 @@ public class Session
         
         PacketReceived?.Invoke(typedPacket);
 
-        var processor = registry.GetProcessor(typedPacket.GetType());
+        var processor = registry.GetProcessor(PacketDirection.Receive, typedPacket.GetType());
         if (processor is null)
         {
             return;
@@ -121,8 +122,8 @@ public class Session
         }
         
         PacketSend?.Invoke(typedPacket);
-
-        var processor = registry.GetProcessor(typedPacket.GetType());
+        
+        var processor = registry.GetProcessor(PacketDirection.Send, typedPacket.GetType());
         if (processor is null)
         {
             return;

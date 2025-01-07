@@ -38,7 +38,7 @@ public class InDrop
 
 public class InPlayer
 {
-    public string Name { get; init; }
+    public string FamilyName { get; init; }
 }
 
 public class InBuilder : PacketBuilder<In>
@@ -82,6 +82,10 @@ public class InBuilder : PacketBuilder<In>
                 };
                 break;
             case EntityType.Player:
+                packet.Player = new InPlayer
+                {
+                    FamilyName = body[26]
+                };
                 break;
         }
 
@@ -147,7 +151,9 @@ public class InProcessor : PacketProcessor<In>
                     Id = packet.EntityId,
                     Name = packet.Name,
                     Position = new Position(packet.X, packet.Y),
-                    Map = map
+                    Map = map,
+                    FamilyName = packet.Player.FamilyName,
+                    GlacernonSide = GlacernonSide.Angel // TODO : Get from packet
                 };
                 
                 map.AddEntity(player);

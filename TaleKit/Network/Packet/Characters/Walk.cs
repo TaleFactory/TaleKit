@@ -27,6 +27,7 @@ public class WalkBuilder : PacketBuilder<Walk>
     }
 }
 
+[ExecuteOnlyOn(Direction = PacketDirection.Send)]
 public class WalkProcessor : PacketProcessor<Walk>
 {
     protected override void Process(Session session, Walk packet)

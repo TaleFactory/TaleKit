@@ -7,6 +7,7 @@ public class CInfo : IPacket
 {
     public string Name { get; init; }
     public int Id { get; init; }
+    public string FamilyName { get; init; }
 }
 
 public class CInfoBuilder : PacketBuilder<CInfo>
@@ -18,7 +19,8 @@ public class CInfoBuilder : PacketBuilder<CInfo>
         return new CInfo
         {
             Name = body[0],
-            Id = body[5].ToInt()
+            Id = body[5].ToInt(),
+            FamilyName = body[4]
         };
     }
 }
@@ -29,5 +31,6 @@ public class CInfoProcessor : PacketProcessor<CInfo>
     {
         session.Character.Id = packet.Id;
         session.Character.Name = packet.Name;
+        session.Character.FamilyName = packet.FamilyName;
     }
 }

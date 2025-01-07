@@ -1,15 +1,16 @@
-﻿using TaleKit.Network;
+﻿using TaleKit.Game.Entities;
+using TaleKit.Network;
 
 namespace TaleKit.Game.Storage;
 
 public class Equipment
 {
-    private readonly INetwork network;
+    private readonly Character character;
     private readonly Dictionary<EquipmentSlot, EquipmentItem> content = new();
 
-    public Equipment(INetwork network)
+    public Equipment(Character character)
     {
-        this.network = network;
+        this.character = character;
     }
 
     public void Clear()
@@ -24,7 +25,7 @@ public class Equipment
             return;
         }
         
-        network.SendPacket("sl 0");
+        character.GetNetwork().SendPacket("sl 0");
     }
 
     public EquipmentItem GetItem(EquipmentSlot slot)
@@ -44,7 +45,7 @@ public class Equipment
             return;
         }
         
-        network.SendPacket($"wear {stack.Slot} 0");
+        character.GetNetwork().SendPacket($"wear {stack.Slot} 0");
     }
 
     public void Remove(EquipmentItem item)
@@ -54,6 +55,6 @@ public class Equipment
             return;
         }
         
-        network.SendPacket($"remove {item.Slot} 0");
+        character.GetNetwork().SendPacket($"remove {item.Slot} 0");
     }
 }

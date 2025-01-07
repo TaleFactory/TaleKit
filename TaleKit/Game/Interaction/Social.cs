@@ -1,4 +1,5 @@
-﻿using TaleKit.Network;
+﻿using TaleKit.Game.Entities;
+using TaleKit.Network;
 
 namespace TaleKit.Game.Interaction;
 
@@ -6,11 +7,11 @@ public class Social
 {
     public HashSet<Friend> Friends { get; set; } = new();
 
-    private readonly INetwork network;
+    private readonly Character character;
 
-    public Social(INetwork network)
+    public Social(Character character)
     {
-        this.network = network;
+        this.character = character;
     }
 
     public void JoinMiniland(Friend friend)
@@ -20,6 +21,6 @@ public class Social
             return;
         }
         
-        network.SendPacket($"mjoin 1 {friend.Id}");
+        character.GetNetwork().SendPacket($"mjoin 1 {friend.Id}");
     }
 }

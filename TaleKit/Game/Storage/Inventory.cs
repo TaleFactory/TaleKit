@@ -13,15 +13,13 @@ public enum InventoryType
 public class Inventory
 {
     public int Gold { get; set; }
-
-    private readonly INetwork network;
+    
     private readonly Character character;
     private readonly Dictionary<InventoryType, Dictionary<int, InventoryItem>> content = new();
 
-    public Inventory(Character character, INetwork network)
+    public Inventory(Character character)
     {
         this.character = character;
-        this.network = network;
     }
 
     public InventoryItem GetItem(Func<InventoryItem, bool> selector)
@@ -71,7 +69,7 @@ public class Inventory
             return;
         }
         
-        network.SendPacket($"u_i {(int)character.EntityType} {character.Id} {(int)stack.Inventory} {stack.Slot} 0 0 ");
+        character.GetNetwork().SendPacket($"u_i {(int)character.EntityType} {character.Id} {(int)stack.Inventory} {stack.Slot} 0 0 ");
     }
 
     public async Task<InventoryItem> WaitForItem(Func<InventoryItem, bool> expression)
@@ -101,6 +99,6 @@ public class Inventory
             amount = stack.Amount;
         }
         
-        network.SendPacket($"put {(int)stack.Inventory} {stack.Slot} {amount}");
+        character.GetNetwork().SendPacket($"put {(int)stack.Inventory} {stack.Slot} {amount}");
     }
 }
