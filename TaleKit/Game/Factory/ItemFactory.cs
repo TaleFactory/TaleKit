@@ -14,7 +14,7 @@ public class ItemFactory
             Amount = amount,
             Name = data is not null
                 ? TranslationRegistry.GetTranslation(TranslationGroup.Items,
-                      Language.French,
+                      TaleKitSettings.Language,
                       data.NameKey) ??
                   "Undefined"
                 : "Undefined",
@@ -35,7 +35,7 @@ public class ItemFactory
             VirtualNumber = virtualNumber,
             Name = data is not null
                 ? TranslationRegistry.GetTranslation(TranslationGroup.Items,
-                      Language.French,
+                      TaleKitSettings.Language,
                       data.NameKey) ??
                   "Undefined"
                 : "Undefined",

@@ -1,4 +1,6 @@
-﻿namespace TaleKit.Game.Entities;
+﻿using TaleKit.Game.Combat;
+
+namespace TaleKit.Game.Entities;
 
 public abstract class LivingEntity : Entity
 {
@@ -10,4 +12,6 @@ public abstract class LivingEntity : Entity
     public bool CanMove { get; set; }
     
     public int Speed { get; set; }
+
+    public HashSet<Buff> Buffs { get; set; } = new();
 }

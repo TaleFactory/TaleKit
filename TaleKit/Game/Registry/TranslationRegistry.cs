@@ -8,7 +8,8 @@ public enum TranslationGroup
     Items,
     Monsters,
     Skills,
-    Maps
+    Maps,
+    Cards
 }
 
 public enum Language
