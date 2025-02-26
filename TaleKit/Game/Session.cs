@@ -1,5 +1,6 @@
 ﻿using System.Collections.Concurrent;
 using Microsoft.Extensions.DependencyInjection;
+using Serilog;
 using TaleKit.Extension;
 using TaleKit.Game.Entities;
 using TaleKit.Game.Event;
@@ -96,39 +97,54 @@ public class Session
 
     private void OnPacketReceived(string packet)
     {
-        var typedPacket = factory.CreatePacket(packet);
-        if (typedPacket is null)
+        try
         {
-            return;
-        }
+            var typedPacket = factory.CreatePacket(packet);
+            if (typedPacket is null)
+            {
+                return;
+            }
         
-        PacketReceived?.Invoke(typedPacket);
+            PacketReceived?.Invoke(typedPacket);
 
-        var processor = registry.GetProcessor(PacketDirection.Receive, typedPacket.GetType());
-        if (processor is null)
-        {
-            return;
-        }
+            var processor = registry.GetProcessor(PacketDirection.Receive, typedPacket.GetType());
+            if (processor is null)
+            {
+                return;
+            }
         
-        processor.Process(this, typedPacket);
+            processor.Process(this, typedPacket);
+        }
+        catch (Exception e)
+        {
+            Log.Error(e, "Failed to process packet");
+        }
     }
 
     private void OnPacketSend(string packet)
     {
-        var typedPacket = factory.CreatePacket(packet);
-        if (typedPacket is null)
+        try
         {
-            return;
-        }
-        
-        PacketSend?.Invoke(typedPacket);
-        
-        var processor = registry.GetProcessor(PacketDirection.Send, typedPacket.GetType());
-        if (processor is null)
+            var typedPacket = factory.CreatePacket(packet);
+            if (typedPacket is null)
+            {
+                return;
+            }
+
+            PacketSend?.Invoke(typedPacket);
+
+            var processor = registry.GetProcessor(PacketDirection.Send, typedPacket.GetType());
+            if (processor is null)
+            {
+                return;
+            }
+
+            processor.Process(this, typedPacket);
+                
+        } 
+        catch (Exception e)
         {
-            return;
+            Log.Error(e, "Failed to process packet");
         }
-        
-        processor.Process(this, typedPacket);
     }
 }
