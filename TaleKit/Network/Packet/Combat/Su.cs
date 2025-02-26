@@ -57,6 +57,14 @@ public class SuProcessor : PacketProcessor<Su>
 
         target.HpPercentage = packet.TargetHpPercentage;
 
+        session.Emit(new EntityDamageEvent
+        {
+            Target = target,
+            Caster = caster,
+            Damage = packet.Damage,
+            Session = session
+        });
+        
         if (packet.TargetIsAlive)
         {
             return;
