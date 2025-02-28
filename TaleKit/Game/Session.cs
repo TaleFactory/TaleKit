@@ -140,7 +140,6 @@ public class Session
             }
 
             processor.Process(this, typedPacket);
-                
         } 
         catch (Exception e)
         {

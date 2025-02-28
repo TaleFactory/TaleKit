@@ -9,6 +9,16 @@ public static class CharacterExtensions
     {
         return character.Map?.Id == mapId;
     }
+
+    public static bool Is(this Character character, EntityType entityType)
+    {
+        return character.EntityType == entityType;
+    }
+
+    public static bool IsPlayer(this Character character)
+    {
+        return character.Is(EntityType.Player);
+    }
     
     public static void WalkInRange(this Character character, Position target, int range)
     {
