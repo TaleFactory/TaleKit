@@ -10,14 +10,14 @@ public static class CharacterExtensions
         return character.Map?.Id == mapId;
     }
 
-    public static bool Is(this Character character, EntityType entityType)
+    public static bool Is(this Entity entity, EntityType entityType)
     {
-        return character.EntityType == entityType;
+        return entity.EntityType == entityType;
     }
 
-    public static bool IsPlayer(this Character character)
+    public static bool IsPlayer(this Entity entity)
     {
-        return character.Is(EntityType.Player);
+        return entity.Is(EntityType.Player);
     }
     
     public static void WalkInRange(this Character character, Position target, int range)
