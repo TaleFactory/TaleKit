@@ -15,9 +15,6 @@ public class Su : IPacket
     public bool TargetIsAlive { get; set; }
     public int TargetHpPercentage { get; set; }
     public int Damage { get; set; }
-    
-    public int TargetHp { get; set; }
-    public int TargetMaxHp { get; set; }
 }
 
 public class SuBuilder : PacketBuilder<Su>
@@ -36,8 +33,6 @@ public class SuBuilder : PacketBuilder<Su>
             TargetIsAlive = body[10].ToBool(),
             TargetHpPercentage = body[11].ToInt(),
             Damage = body[12].ToInt(),
-            TargetHp = body[15].ToInt(),
-            TargetMaxHp = body[16].ToInt()
         };
     }
 }
