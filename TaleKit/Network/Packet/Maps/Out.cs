@@ -1,6 +1,7 @@
 using TaleKit.Extension;
 using TaleKit.Game;
 using TaleKit.Game.Entities;
+using TaleKit.Game.Event.Entities;
 
 namespace TaleKit.Network.Packet.Maps;
 
@@ -41,5 +42,11 @@ public class OutProcessor : PacketProcessor<Out>
         }
         
         map.RemoveEntity(entity);
+        
+        session.Emit(new EntityLeftEvent
+        {
+            Session = session,
+            Entity = entity
+        });
     }
 }
