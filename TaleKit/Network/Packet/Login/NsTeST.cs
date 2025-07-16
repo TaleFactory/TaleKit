@@ -28,7 +28,7 @@ public class NsTeSTBuilder : PacketBuilder<NsTeST>
             .Where(x => x != "1" && x != "0" && x != "3" && x != "-99" && x != "2" && x != "4" && !string.IsNullOrEmpty(x))
             .ToArray();
         
-        IEnumerable<NsTeSTServer> servers = filtered.Skip(2).Select(x =>
+        IEnumerable<NsTeSTServer> servers = filtered.Skip(3).Select(x =>
         {
             var split = x.Split(':');
             var definition = split[^1].Split('.');
@@ -52,7 +52,7 @@ public class NsTeSTBuilder : PacketBuilder<NsTeST>
         return new NsTeST
         {
             Username = filtered[0],
-            EncryptionKey = filtered[1].ToInt(),
+            EncryptionKey = filtered[2].ToInt(),
             Servers = servers
         };
     }
