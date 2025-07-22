@@ -1,5 +1,6 @@
 using TaleKit.Extension;
 using TaleKit.Game;
+using TaleKit.Game.Event.Maps;
 using TaleKit.Game.Factory;
 
 namespace TaleKit.Network.Packet.Maps;
@@ -48,5 +49,11 @@ public class DropProcessor : PacketProcessor<Drop>
         drop.Position = new Position(packet.PositionX, packet.PositionY);
         
         map.AddEntity(drop);
+        
+        session.Emit(new ItemDropEvent
+        {
+            Session = session,
+            Drop = drop
+        });
     }
 }

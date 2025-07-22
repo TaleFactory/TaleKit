@@ -43,6 +43,15 @@ public class Dlgi2Processor : PacketProcessor<Dlgi2>
     {
         switch (packet.Id)
         {
+            case 243:
+            {
+                session.Emit(new FriendRequestEvent(packet.Accept, packet.Decline)
+                {
+                    Session = session,
+                    SenderName = packet.Sender
+                });
+                break;
+            }
             case 169:
             {
                 var sender = session.Character.Map.GetPlayerByName(packet.Sender);
