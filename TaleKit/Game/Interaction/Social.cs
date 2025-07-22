@@ -23,4 +23,12 @@ public class Social
         
         character.GetNetwork().SendPacket($"mjoin 1 {friend.Id}");
     }
+
+    public void UseWingsOfFriendship(Friend friend)
+    {
+        if (!Friends.Contains(friend))
+            return;
+        
+        character.GetNetwork().SendPacket($"guri 199 1 {friend.Id}");
+    }
 }
