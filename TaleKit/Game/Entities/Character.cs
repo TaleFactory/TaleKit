@@ -102,7 +102,7 @@ public class Character : Player
     
     public void AttackAt(Skill skill, Position target)
     {
-        var canAttack = Position.IsInRange(target, skill.Range) && !skill.IsOnCooldown;
+        var canAttack = Position.IsInRange(target, skill.Range) && !skill.IsOnCooldown && skill.TargetType == TargetType.NoTarget;
         if (!canAttack)
         {
             return;

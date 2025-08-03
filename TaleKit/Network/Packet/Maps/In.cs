@@ -39,6 +39,8 @@ public class InDrop
 public class InPlayer
 {
     public string FamilyName { get; init; }
+    public int Level { get; init; }
+    public int HeroLevel { get; init; }
 }
 
 public class InBuilder : PacketBuilder<In>
@@ -84,7 +86,9 @@ public class InBuilder : PacketBuilder<In>
             case EntityType.Player:
                 packet.Player = new InPlayer
                 {
-                    FamilyName = body[26]
+                    FamilyName = body[26],
+                    Level = body[32].ToInt(),
+                    HeroLevel = body[38].ToInt()
                 };
                 break;
         }
@@ -153,6 +157,8 @@ public class InProcessor : PacketProcessor<In>
                     Position = new Position(packet.X, packet.Y),
                     Map = map,
                     FamilyName = packet.Player.FamilyName,
+                    Level = packet.Player.Level,
+                    HeroLevel = packet.Player.HeroLevel,
                     GlacernonSide = GlacernonSide.Angel // TODO : Get from packet
                 };
                 
