@@ -16,4 +16,16 @@ public class NpcFactory
             Name = TranslationRegistry.GetTranslation(TranslationGroup.Monsters, TaleKitSettings.Language, data?.NameKey ?? "") ?? "Undefined"
         };
     }
+    
+    public static Nosmate CreateNosmate(int id, int vnum)
+    {
+        var data = MonsterRegistry.GetMonsterData(vnum);
+        
+        return new Nosmate
+        {
+            Id = id,
+            VirtualNumber = vnum,
+            Name = TranslationRegistry.GetTranslation(TranslationGroup.Monsters, TaleKitSettings.Language, data?.NameKey ?? "") ?? "Undefined"
+        };
+    }
 }

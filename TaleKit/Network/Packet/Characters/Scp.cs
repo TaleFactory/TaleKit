@@ -41,19 +41,6 @@ public class ScpProcessor : PacketProcessor<Scp>
 {
     protected override void Process(Session session, Scp packet)
     {
-        var data = MonsterRegistry.GetMonsterData(packet.VirtualNumber);
-        var name= TranslationRegistry.GetTranslation(TranslationGroup.Monsters, TaleKitSettings.Language, data?.NameKey ?? string.Empty) 
-                  ?? "Undefined";
-        
-        session.Character.Nosmates.Add(new Nosmate
-        {
-            Id = packet.EntityId,
-            Name = packet.Name == "@" ? name : packet.Name,
-            Index = packet.Index,
-            VirtualNumber = packet.VirtualNumber,
-            HeroLevel = packet.HeroLevel,
-            Stars = packet.Stars,
-            Level = packet.Level
-        });
+
     }
 }

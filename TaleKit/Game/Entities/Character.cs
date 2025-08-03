@@ -9,7 +9,6 @@ namespace TaleKit.Game.Entities;
 public interface IActionBridge
 {
     void Walk(Character character, Position position);
-    void WalkNosmate(SummonedNosmate nosmate, Position position);
     void Attack(LivingEntity entity);
     void Attack(LivingEntity entity, Skill skill);
     void PickUp(Character character, Drop drop);
@@ -23,9 +22,6 @@ public class Character : Player
     public int MaximumMana { get; set; }
 
     public HashSet<Skill> Skills { get; set; } = new();
-    public HashSet<Nosmate> Nosmates { get; set; } = new();
-    
-    public SummonedNosmate Nosmate { get; set; }
 
     public Social Social { get; }
     public Inventory Inventory { get; }

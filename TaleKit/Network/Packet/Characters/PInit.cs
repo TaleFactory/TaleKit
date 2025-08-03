@@ -50,34 +50,6 @@ public class PartyInitProcessor : PacketProcessor<PartyInit>
 {
     protected override void Process(Session session, PartyInit packet)
     {
-        if (packet.Members.Count == 0)
-        {
-            session.Character.Nosmate = null;
-            return;
-        }
-        
-        foreach (var member in packet.Members)
-        {
-            switch (member.EntityType)
-            {
-                case EntityType.Npc:
-                {
-                    var nosmate = session.Character.Nosmates.FirstOrDefault(x => x.Id == member.EntityId);
-                    if (nosmate == null)
-                    {
-                        continue;
-                    }
 
-                    session.Character.Nosmate = new SummonedNosmate(session.Character)
-                    {
-                        Nosmate = nosmate
-                    };
-                    break;
-                }
-                case EntityType.Player:
-                    // TODO: Implement player party member
-                    continue;
-            }
-        }
     }
 }

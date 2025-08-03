@@ -40,16 +40,6 @@ public class PetSkillProcessor : PacketProcessor<PetSki>
 {
     protected override void Process(Session session, PetSki packet)
     {
-        if (session.Character.Nosmate == null)
-        {
-            return;
-        }
 
-        session.Character.Nosmate.Skills = packet.Skills
-            .Select(x => new NosmateSkill 
-            { 
-                VirtualNumber = x 
-            })
-            .ToList();
     }
 }

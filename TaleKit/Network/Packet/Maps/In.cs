@@ -138,8 +138,22 @@ public class InProcessor : PacketProcessor<In>
                 entity = drop;
                 break;
             case EntityType.Npc:
-                var npc = NpcFactory.CreateNpc(packet.EntityId, packet.VirtualNumber);
+                Npc npc;
+                if (packet.Npc.Owner == -1)
+                {
+                    npc = NpcFactory.CreateNpc(packet.EntityId, packet.VirtualNumber);
+                }
+                else
+                {
+                    var nosmate = NpcFactory.CreateNosmate(packet.EntityId, packet.VirtualNumber);
+                    var owner = map.GetEntity<Player>(EntityType.Player, packet.Npc.Owner);
 
+                    nosmate.Owner = owner;
+                    nosmate.Owner.Nosmates.Add(nosmate);
+                    
+                    npc = nosmate;
+                }
+                
                 npc.HpPercentage = packet.Npc.HpPercentage;
                 npc.MpPercentage = packet.Npc.MpPercentage;
                 npc.Position = new Position(packet.X, packet.Y);
@@ -158,8 +172,7 @@ public class InProcessor : PacketProcessor<In>
                     Map = map,
                     FamilyName = packet.Player.FamilyName,
                     Level = packet.Player.Level,
-                    HeroLevel = packet.Player.HeroLevel,
-                    GlacernonSide = GlacernonSide.Angel // TODO : Get from packet
+                    HeroLevel = packet.Player.HeroLevel
                 };
                 
                 map.AddEntity(player);

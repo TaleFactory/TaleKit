@@ -40,6 +40,11 @@ public class OutProcessor : PacketProcessor<Out>
         {
             return;
         }
+
+        if (entity is Nosmate nosmate)
+        {
+            nosmate.Owner?.Nosmates.Remove(nosmate);
+        }
         
         map.RemoveEntity(entity);
         

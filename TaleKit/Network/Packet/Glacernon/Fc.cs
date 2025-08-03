@@ -1,7 +1,5 @@
 ﻿using TaleKit.Extension;
 using TaleKit.Game;
-using TaleKit.Game.Entities;
-using TaleKit.Game.Event.Glacernon;
 
 namespace TaleKit.Network.Packet.Glacernon;
 
@@ -16,11 +14,6 @@ public class Fc : IPacket
     
     public int AngelTime { get; set; }
     public int DemonTime { get; set; }
-    
-    public bool IsHatus { get; set; }
-    public bool IsMorcos { get; set; }
-    public bool IsCalvina { get; set; }
-    public bool IsBerios { get; set; }
 }
 
 public class FcBuilder : PacketBuilder<Fc>
@@ -45,6 +38,7 @@ public class FcProcessor : PacketProcessor<Fc>
 {
     protected override void Process(Session session, Fc packet)
     {
+        /*
         if (packet.AngelEvent == 0 && packet.DemonEvent == 0)
         {
             session.Emit(new GlacernonPercentChangedEvent
@@ -74,5 +68,6 @@ public class FcProcessor : PacketProcessor<Fc>
                 TimeLeft = packet.AngelEvent == 3 ? packet.AngelTime : packet.DemonTime,
             });
         }
+        */
     }
 }
