@@ -10,7 +10,7 @@ public enum EntityType
     Drop = 9
 }
 
-public abstract class Entity
+public abstract class Entity : IEquatable<Entity>
 {
     public int Id { get; set; }
     public string Name { get; set; }
@@ -18,4 +18,24 @@ public abstract class Entity
     public Map Map { get; set; }
     
     public abstract EntityType EntityType { get; }
+
+    public bool Equals(Entity other)
+    {
+        if (other is null) return false;
+        if (ReferenceEquals(this, other)) return true;
+        return Id == other.Id && EntityType == other.EntityType;
+    }
+
+    public override bool Equals(object obj)
+    {
+        if (obj is null) return false;
+        if (ReferenceEquals(this, obj)) return true;
+        if (obj.GetType() != GetType()) return false;
+        return Equals((Entity)obj);
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(Id, (int)EntityType);
+    }
 }

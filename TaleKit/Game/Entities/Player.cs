@@ -7,5 +7,5 @@ public class Player : LivingEntity
     public int Level { get; set; }
     public int HeroLevel { get; set; }
     
-    public List<Nosmate> Nosmates { get; set; } = [];
+    public HashSet<Nosmate> Nosmates { get; set; } = [];
 }
