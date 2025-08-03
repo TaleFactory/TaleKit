@@ -26,6 +26,7 @@ public class UsBuilder : PacketBuilder<Us>
     }
 }
 
+[ExecuteOnlyOn(Direction = PacketDirection.Send)]
 public class UsProcessor : PacketProcessor<Us>
 {
     protected override void Process(Session session, Us packet)

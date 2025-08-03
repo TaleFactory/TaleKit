@@ -25,6 +25,7 @@ public class UasBuilder : PacketBuilder<Uas>
     }
 }
 
+[ExecuteOnlyOn(Direction = PacketDirection.Send)]
 public class UasProcessor : PacketProcessor<Uas>
 {
     protected override void Process(Session session, Uas packet)
