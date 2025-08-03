@@ -2,5 +2,6 @@
 
 public class Nosmate : Npc
 {
-    public Player Owner { get; set; }
+    public int OwnerId { get; set; }
+    public Player Owner => Map.GetEntity<Player>(EntityType.Player, OwnerId);
 }

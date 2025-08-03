@@ -138,21 +138,9 @@ public class InProcessor : PacketProcessor<In>
                 entity = drop;
                 break;
             case EntityType.Npc:
-                Npc npc;
-                if (packet.Npc.Owner == -1)
-                {
-                    npc = NpcFactory.CreateNpc(packet.EntityId, packet.VirtualNumber);
-                }
-                else
-                {
-                    var nosmate = NpcFactory.CreateNosmate(packet.EntityId, packet.VirtualNumber);
-                    var owner = map.GetEntity<Player>(EntityType.Player, packet.Npc.Owner);
-
-                    nosmate.Owner = owner;
-                    nosmate.Owner.Nosmates.Add(nosmate);
-                    
-                    npc = nosmate;
-                }
+                var npc = packet.Npc.Owner == -1 ? 
+                    NpcFactory.CreateNpc(packet.EntityId, packet.VirtualNumber) :
+                    NpcFactory.CreateNosmate(packet.EntityId, packet.VirtualNumber);
                 
                 npc.HpPercentage = packet.Npc.HpPercentage;
                 npc.MpPercentage = packet.Npc.MpPercentage;
