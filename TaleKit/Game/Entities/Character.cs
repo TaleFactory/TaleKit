@@ -99,6 +99,17 @@ public class Character : Player
         
         bridge.Attack(entity, skill);
     }
+    
+    public void AttackAt(Skill skill, Position target)
+    {
+        var canAttack = Position.IsInRange(target, skill.Range) && !skill.IsOnCooldown;
+        if (!canAttack)
+        {
+            return;
+        }
+
+        network.SendPacket($"u_as {skill.CastId} {target.X} {target.Y}");
+    }
 
     public void AttackSelf(Skill skill)
     {
