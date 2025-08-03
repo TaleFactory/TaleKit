@@ -130,5 +130,5 @@ public class Character : Player
     }
     
     internal INetwork GetNetwork() => network;
-    internal IExecutor GetBridge() => executor;
+    internal IExecutor GetExecutor() => executor;
 }
