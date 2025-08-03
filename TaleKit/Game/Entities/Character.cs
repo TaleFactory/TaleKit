@@ -6,7 +6,7 @@ using TaleKit.Network;
 
 namespace TaleKit.Game.Entities;
 
-public interface IActionBridge
+public interface IExecutor
 {
     void Walk(Character character, Position position);
     void Attack(LivingEntity entity);
@@ -33,11 +33,11 @@ public class Character : Player
     public Trade Trade { get; set; }
     
     private readonly INetwork network;
-    private readonly IActionBridge bridge;
+    private readonly IExecutor executor;
 
-    public Character(IActionBridge bridge, INetwork network)
+    public Character(IExecutor executor, INetwork network)
     {
-        this.bridge = bridge;
+        this.executor = executor;
         this.network = network;
 
         Social = new Social(this);
@@ -49,7 +49,7 @@ public class Character : Player
     
     public void Walk(Position destination)
     {
-        bridge.Walk(this, destination);
+        executor.Walk(this, destination);
     }
     
     public void SendTradeRequest(Player player)
@@ -82,7 +82,7 @@ public class Character : Player
             return;
         }
         
-        bridge.Attack(entity, skill);
+        executor.Attack(entity, skill);
     }
 
     public void Attack(LivingEntity entity, Skill skill)
@@ -93,7 +93,7 @@ public class Character : Player
             return;
         }
         
-        bridge.Attack(entity, skill);
+        executor.Attack(entity, skill);
     }
     
     public void AttackAt(Skill skill, Position target)
@@ -115,7 +115,7 @@ public class Character : Player
             return;
         }
 
-        bridge.Attack(this, skill);
+        executor.Attack(this, skill);
     }
 
     public void PickUp(Drop drop)
@@ -126,9 +126,9 @@ public class Character : Player
             return;
         }
         
-        bridge.PickUp(this, drop);
+        executor.PickUp(this, drop);
     }
     
     internal INetwork GetNetwork() => network;
-    internal IActionBridge GetBridge() => bridge;
+    internal IExecutor GetBridge() => executor;
 }

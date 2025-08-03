@@ -21,7 +21,7 @@ public class Session
     public event Action<IPacket> PacketSend;
     public event Action Disconnected;
     
-    public Session(INetwork network, IActionBridge bridge)
+    public Session(INetwork network, IExecutor executor)
     {
         var services = new ServiceCollection()
             .AddSingleton<PacketFactory>()
@@ -38,7 +38,7 @@ public class Session
         this.network.PacketReceived += OnPacketReceived;
         this.network.Disconnected += () => Disconnected?.Invoke();
 
-        Character = new Character(bridge, network);
+        Character = new Character(executor, network);
     }
 
     public Character Character { get; set; }

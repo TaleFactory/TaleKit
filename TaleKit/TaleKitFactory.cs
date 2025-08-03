@@ -11,13 +11,13 @@ namespace TaleKit;
 public class SessionConfiguration
 {
     public required INetwork Network { get; init; }
-    public required IActionBridge ActionBridge { get; init; }
+    public required IExecutor Executor { get; init; }
 }
 
 public class TaleKitFactory
 {
     public static Session CreateSession(SessionConfiguration configuration)
     {
-        return new Session(configuration.Network, configuration.ActionBridge);
+        return new Session(configuration.Network, configuration.Executor);
     }
 }
