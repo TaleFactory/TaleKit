@@ -1,5 +1,7 @@
 using TaleKit.Extension;
 using TaleKit.Game;
+using TaleKit.Game.Event.Characters;
+using TaleKit.Game.Event.Entities;
 
 namespace TaleKit.Network.Packet.Characters;
 
@@ -38,6 +40,8 @@ public class WalkProcessor : PacketProcessor<Walk>
             Y = packet.Y
         });
         
+        var from = session.Character.Position;
+        
         Task.Delay(distance * 200).Then(() =>
         {
             session.Character.Position = new Position
@@ -45,6 +49,13 @@ public class WalkProcessor : PacketProcessor<Walk>
                 X = packet.X,
                 Y = packet.Y
             };
+            
+            session.Emit(new PositionChangedEvent
+            {
+                Session = session,
+                From = from,
+                To = session.Character.Position
+            });
         });
     }
 }

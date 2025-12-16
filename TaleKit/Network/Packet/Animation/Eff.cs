@@ -1,7 +1,7 @@
 ﻿using TaleKit.Extension;
 using TaleKit.Game;
-using TaleKit.Game.Animation;
 using TaleKit.Game.Entities;
+using TaleKit.Game.Event.Animations;
 
 namespace TaleKit.Network.Packet.Animation;
 

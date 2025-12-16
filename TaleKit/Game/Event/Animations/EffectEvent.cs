@@ -1,7 +1,6 @@
 ﻿using TaleKit.Game.Entities;
-using TaleKit.Game.Event;
 
-namespace TaleKit.Game.Animation;
+namespace TaleKit.Game.Event.Animations;
 
 public class EffectEvent : IEvent
 {

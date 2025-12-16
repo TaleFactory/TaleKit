@@ -1,6 +1,7 @@
 using TaleKit.Extension;
 using TaleKit.Game;
 using TaleKit.Game.Entities;
+using TaleKit.Game.Event.Entities;
 
 namespace TaleKit.Network.Packet.Entities;
 
@@ -46,6 +47,15 @@ public class MvProcessor : PacketProcessor<Mv>
             return;
         }
 
+        var from = entity.Position;
         entity.Position = new Position(packet.X, packet.Y);
+
+        session.Emit(new EntityMovedEvent
+        {
+            Session = session,
+            Entity = entity,
+            From = from,
+            To = entity.Position
+        });
     }
 }
