@@ -31,7 +31,11 @@ public class EffProcessor : PacketProcessor<Eff>
 {
     protected override void Process(Session session, Eff packet)
     {
-        var entity = session.Character.Map.GetEntity<Entity>(packet.EntityType, packet.EntityId);
+        var map = session.Character.Map;
+        if (map is null)
+            return;
+        
+        var entity = map.GetEntity<Entity>(packet.EntityType, packet.EntityId);
         if (entity is null)
             return;
         

@@ -30,6 +30,10 @@ public class GetProcessor : PacketProcessor<Get>
 {
     protected override void Process(Session session, Get packet)
     {
+        var map = session.Character.Map;
+        if (map is null)
+            return;
+        
         var drop = session.Character.Map.GetEntity<Game.Entities.Drop>(EntityType.Drop, packet.DropId);
         if (drop is null)
         {

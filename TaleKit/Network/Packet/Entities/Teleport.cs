@@ -33,6 +33,10 @@ public class TeleportProcessor : PacketProcessor<Teleport>
 {
     protected override void Process(Session session, Teleport packet)
     {
+        var map = session.Character.Map;
+        if (map is null)
+            return;
+        
         var entity = session.Character.Map.GetEntity<Entity>(packet.EntityType, packet.EntityId);
         if (entity is null)
         {

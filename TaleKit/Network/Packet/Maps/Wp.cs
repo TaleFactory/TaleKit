@@ -33,6 +33,10 @@ public class WpProcessor : PacketProcessor<Wp>
 {
     protected override void Process(Session session, Wp packet)
     {
+        var map = session.Character.Map;
+        if (map is null)
+            return;
+        
         var timespace = TimespaceFactory.CreateTimespace(packet.Id, packet.Level, packet.X, packet.Y);
         if (timespace is null)
         {

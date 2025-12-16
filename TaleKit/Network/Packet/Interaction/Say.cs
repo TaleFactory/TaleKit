@@ -38,6 +38,10 @@ public class SayProcessor : PacketProcessor<Say>
             return;
         }
         
+        var map = session.Character.Map;
+        if (map is null)
+            return;
+        
         var player = session.Character.Map.GetEntity<Player>(packet.EntityType, packet.EntityId);
         if (player == null)
         {

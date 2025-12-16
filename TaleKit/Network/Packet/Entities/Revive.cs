@@ -29,6 +29,10 @@ public class ReviveProcessor : PacketProcessor<Revive>
 {
     protected override void Process(Session session, Revive packet)
     {
+        var map = session.Character.Map;
+        if (map is null)
+            return;
+        
         var entity = session.Character.Map.GetEntity<LivingEntity>(packet.EntityType, packet.EntityId);
         if (entity is null)
         {

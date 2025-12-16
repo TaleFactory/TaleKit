@@ -28,6 +28,10 @@ public class ShopProcessor : PacketProcessor<Shop>
 {
     protected override void Process(Session session, Shop packet)
     {
+        var map = session.Character.Map;
+        if (map is null)
+            return;
+        
         var npc = session.Character.Map.GetEntity<Npc>(EntityType.Npc, packet.NpcId);
         if (npc is null)
         {

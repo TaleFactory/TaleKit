@@ -35,15 +35,11 @@ public class BfeProcessor : PacketProcessor<Bfe>
     {
         var map = session.Character.Map;
         if (map is null)
-        {
             return;
-        }
-
+        
         var entity = map.GetEntity<LivingEntity>(packet.EntityType, packet.EntityId);
         if (entity is null)
-        {
             return;
-        }
         
         if (packet.Duration > 0)
         {
