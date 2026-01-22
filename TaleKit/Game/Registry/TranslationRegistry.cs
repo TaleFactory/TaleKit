@@ -47,6 +47,12 @@ public class TranslationRegistry
         return translations.GetValueOrDefault(key);
     }
 
+    public static string GetTranslationKey(TranslationGroup group, Language language, string value)
+    {
+        var translations = Cache.GetValueOrDefault(group)?.GetValueOrDefault(language);
+        return translations?.FirstOrDefault(pair => pair.Value == value).Key ?? string.Empty;
+    }
+
     private static Dictionary<string, string> Load(string path)
     {
         var content = File.ReadAllText(path);

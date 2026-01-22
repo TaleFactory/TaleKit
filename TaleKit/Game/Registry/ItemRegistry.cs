@@ -29,4 +29,18 @@ public class ItemRegistry
 
         return Cache.GetValueOrDefault(virtualNumber);
     }
+
+    public static ItemData GetItemData(string nameKey)
+    {
+        if (Cache is null)
+        {
+            var path = Path.Combine(DirectoryPath, "Items.json");
+            var content = File.ReadAllText(path);
+            var deserialized = JsonConvert.DeserializeObject<Dictionary<int, ItemData>>(content);
+
+            Cache = deserialized;
+        }
+        
+        return Cache.Values.FirstOrDefault(itemData => itemData.NameKey == nameKey);
+    }
 }
