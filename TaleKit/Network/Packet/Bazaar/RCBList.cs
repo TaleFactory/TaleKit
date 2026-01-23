@@ -5,6 +5,7 @@ namespace TaleKit.Network.Packet.Bazaar;
 
 public class RCBList : IPacket
 {
+    public required int Page { get; init; }
     public List<RCBListEntry> Entries { get; init; } = new();
 }
 
@@ -27,6 +28,8 @@ public class RCBListBuilder : PacketBuilder<RCBList>
         foreach (var value in values)
         {
             var split = value.Split('|');
+            if (split.Length == 0) 
+                continue;
 
             var name = split[2];
             var itemId = split[3].ToInt();
@@ -44,6 +47,7 @@ public class RCBListBuilder : PacketBuilder<RCBList>
 
         return new RCBList
         {
+            Page = body[0].ToInt(),
             Entries = entries
         };
     }
