@@ -49,8 +49,50 @@ public class TranslationRegistry
 
     public static string GetTranslationKey(TranslationGroup group, Language language, string value)
     {
-        var translations = Cache.GetValueOrDefault(group)?.GetValueOrDefault(language);
-        return translations?.FirstOrDefault(pair => pair.Value == value).Key ?? string.Empty;
+        var category = Cache.GetValueOrDefault(group);
+        var translations = category?.GetValueOrDefault(language);
+        
+        if (translations is null)
+        {
+            var path = Path.Combine(DirectoryPath, group.ToString(), $"{language}.json");
+            if (!File.Exists(path))
+            {
+                return string.Empty;
+            }
+            
+            if (category == null)
+            {
+                Cache[group] = category = new ConcurrentDictionary<Language, Dictionary<string, string>>();
+            }
+
+            category[language] = translations = Load(path);
+        }
+        
+        return translations?.FirstOrDefault(pair => string.Equals(pair.Value, value, StringComparison.InvariantCultureIgnoreCase)).Key ?? string.Empty;
+    }
+
+    public static List<KeyValuePair<string, string>> GetTranslations(TranslationGroup group, Language language)
+    {
+        var category = Cache.GetValueOrDefault(group);
+        var translations = category?.GetValueOrDefault(language);
+        
+        if (translations is null)
+        {
+            var path = Path.Combine(DirectoryPath, group.ToString(), $"{language}.json");
+            if (!File.Exists(path))
+            {
+                return [];
+            }
+            
+            if (category == null)
+            {
+                Cache[group] = category = new ConcurrentDictionary<Language, Dictionary<string, string>>();
+            }
+
+            category[language] = translations = Load(path);
+        }
+        
+        return translations.ToList();
     }
 
     private static Dictionary<string, string> Load(string path)
